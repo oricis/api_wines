@@ -1,0 +1,113 @@
+{
+    "version": "@package_version@",
+    "package": "phpmd",
+    "timestamp": "2024-10-31T16:42:21+00:00",
+    "files": [
+        {
+            "file": "\/var\/www\/html\/Symfony\/api_wines\/src\/Util\/Helpers\/Common\/traces.php",
+            "violations": [
+                {
+                    "beginLine": 8,
+                    "endLine": 12,
+                    "package": "+global",
+                    "function": "dd",
+                    "class": null,
+                    "method": null,
+                    "description": "Avoid using short method names like ::dd(). The configured minimum method name length is 3.",
+                    "rule": "ShortMethodName",
+                    "ruleSet": "Naming Rules",
+                    "externalInfoUrl": "https:\/\/phpmd.org\/rules\/naming.html#shortmethodname",
+                    "priority": 3
+                },
+                {
+                    "beginLine": 34,
+                    "endLine": 40,
+                    "package": null,
+                    "function": null,
+                    "class": null,
+                    "method": null,
+                    "description": "The method dump uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.",
+                    "rule": "ElseExpression",
+                    "ruleSet": "Clean Code Rules",
+                    "externalInfoUrl": "https:\/\/phpmd.org\/rules\/cleancode.html#elseexpression",
+                    "priority": 1
+                },
+                {
+                    "beginLine": 59,
+                    "endLine": 73,
+                    "package": "+global",
+                    "function": "go",
+                    "class": null,
+                    "method": null,
+                    "description": "Avoid using short method names like ::go(). The configured minimum method name length is 3.",
+                    "rule": "ShortMethodName",
+                    "ruleSet": "Naming Rules",
+                    "externalInfoUrl": "https:\/\/phpmd.org\/rules\/naming.html#shortmethodname",
+                    "priority": 3
+                }
+            ]
+        },
+        {
+            "file": "\/var\/www\/html\/Symfony\/api_wines\/src\/Util\/Interfaces\/ApiCrudInterface.php",
+            "violations": [
+                {
+                    "beginLine": 14,
+                    "endLine": 14,
+                    "package": null,
+                    "function": null,
+                    "class": null,
+                    "method": null,
+                    "description": "Avoid variables with short names like $id. Configured minimum length is 3.",
+                    "rule": "ShortVariable",
+                    "ruleSet": "Naming Rules",
+                    "externalInfoUrl": "https:\/\/phpmd.org\/rules\/naming.html#shortvariable",
+                    "priority": 3
+                },
+                {
+                    "beginLine": 15,
+                    "endLine": 15,
+                    "package": null,
+                    "function": null,
+                    "class": null,
+                    "method": null,
+                    "description": "Avoid variables with short names like $id. Configured minimum length is 3.",
+                    "rule": "ShortVariable",
+                    "ruleSet": "Naming Rules",
+                    "externalInfoUrl": "https:\/\/phpmd.org\/rules\/naming.html#shortvariable",
+                    "priority": 3
+                }
+            ]
+        },
+        {
+            "file": "\/var\/www\/html\/Symfony\/api_wines\/src\/Util\/Interfaces\/BaseRepositoryInterface.php",
+            "violations": [
+                {
+                    "beginLine": 13,
+                    "endLine": 13,
+                    "package": null,
+                    "function": null,
+                    "class": null,
+                    "method": null,
+                    "description": "Avoid variables with short names like $id. Configured minimum length is 3.",
+                    "rule": "ShortVariable",
+                    "ruleSet": "Naming Rules",
+                    "externalInfoUrl": "https:\/\/phpmd.org\/rules\/naming.html#shortvariable",
+                    "priority": 3
+                },
+                {
+                    "beginLine": 14,
+                    "endLine": 14,
+                    "package": null,
+                    "function": null,
+                    "class": null,
+                    "method": null,
+                    "description": "Avoid variables with short names like $id. Configured minimum length is 3.",
+                    "rule": "ShortVariable",
+                    "ruleSet": "Naming Rules",
+                    "externalInfoUrl": "https:\/\/phpmd.org\/rules\/naming.html#shortvariable",
+                    "priority": 3
+                }
+            ]
+        }
+    ]
+}
