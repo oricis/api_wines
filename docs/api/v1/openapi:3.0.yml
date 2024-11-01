@@ -1,0 +1,437 @@
+openapi: 3.0.3
+
+info:
+  contact:
+    email: contact@ironwoods.es
+  title: Wines API
+  version: '1.0.0'
+
+externalDocs:
+  description: Check repository details
+  url: https://github.com/oricis/api_wines/README.md
+
+servers:
+  - url: http://wines.local/api/v1/
+    description: API URL
+
+paths:
+  /login:
+    post:
+      tags:
+        - auth
+        - user
+      summary: 'Login a user'
+      description: 'Login a user.'
+      operationId: loginUser
+      parameters:
+        - $ref: '#/components/parameters/acceptHeader'
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/contentTypeHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                {
+                  "id": 12,
+                  "name": "foo",
+                  "surname": "baz",
+                  "email": "foo@mail.com"
+                }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+      security:
+        - Api-key: []
+
+  /sensor:
+    get:
+      summary: Get the sensors
+      description: Get all the registered sensors in ASC order by name
+      operationId: getSensors
+      tags:
+        - sensor
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/bearer'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sensor'
+
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '418':
+          $ref: '#/components/responses/Teapot'
+      security:
+        - BearerToken: []
+        - Api-key: []
+
+    post:
+      summary: Register a sensor
+      description: Data to register a new sensor
+      operationId: createSensor
+      requestBody:
+        description: Sensor to register
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSensor'
+      tags:
+        - sensor
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/bearer'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Created'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '418':
+          $ref: '#/components/responses/Teapot'
+      security:
+        - BearerToken: []
+        - Api-key: []
+
+  /measurement:
+    post:
+      summary: Register a measurement
+      description: Register a new measurement
+      operationId: createMeasurement
+      requestBody:
+        description: Data to register a Measurement
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMeasurement'
+      tags:
+        - measurement
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/bearer'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/Created'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '418':
+          $ref: '#/components/responses/Teapot'
+      security:
+        - BearerToken: []
+        - Api-key: []
+
+  /wine/measurement:
+    get:
+      summary: Get wines and measurements
+      description: Get each wine with its measurements
+      operationId: getWinesWithMeasurements
+      tags:
+        - wine
+      parameters:
+        - $ref: '#/components/parameters/apiKey'
+        - $ref: '#/components/parameters/bearer'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WineWithMeasurements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '418':
+          $ref: '#/components/responses/Teapot'
+      security:
+        - BearerToken: []
+        - Api-key: []
+
+tags:
+  - name: auth
+    description: Topics related with user authentication
+  - name: measurement
+    description: Group info about the measurements
+  - name: sensor
+    description: Group info about the sensors
+  - name: wine
+    description: Group info about the wines
+
+components:
+
+  parameters:
+    acceptHeader:
+      in: header
+      name: Accept
+      schema:
+        $ref: '#/components/schemas/ApplicationJson'
+      required: true
+
+    apiKey:
+      in: header
+      name: Api-key
+      description: API token
+      required: true
+      schema:
+        type: string
+        example: nuhd8fiuerw4eg23
+
+    bearer:
+      in: header
+      name: bearer
+      description: API auth token
+      required: true
+      schema:
+        type: string
+
+    contentTypeHeader:
+      in: header
+      name: Content-Type
+      schema:
+        $ref: '#/components/schemas/ApplicationJson'
+      required: true
+
+    token:
+      in: path
+      name: token
+      description: A token string
+      required: true
+      schema:
+        type: string
+
+  schemas:
+    ApplicationJson:
+      default: "application/json"
+      type: string
+
+    Measurement:
+      allOf:
+        - $ref: '#/components/schemas/NewMeasurement'
+        - type: object
+          required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int64
+
+    NewSensor:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        tag:
+          type: string
+
+    NewMeasurement:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        sensor_id:
+          type: integer
+          format: int64
+        wine_id:
+          type: integer
+          format: int64
+        year:
+          type: integer
+          format: int64
+        color:
+          type: string
+        graduation:
+          type: number
+          format: int64
+        ph:
+          type: number
+          format: int64
+        temperature:
+          type: integer
+          format: int64
+
+      required:
+        - sensor_id
+        - wine_id
+        - year
+        - color
+        - graduation
+        - ph
+        - temperature
+
+    Sensor:
+      allOf:
+        - $ref: '#/components/schemas/NewSensor'
+        - type: object
+          required:
+          - id
+          properties:
+            id:
+              type: integer
+              format: int64
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+      required:
+        - id
+        - name
+        - email
+
+    WineWithMeasurements:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        year:
+          type: number
+          format: integer
+        measurements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Measurement'
+      required:
+        - id
+        - measurements
+        - name
+        - year
+
+    LoginRequest:
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: john@example.com
+        password:
+          type: string
+          example: '12345678'
+      type: object
+
+    LoginResponse:
+      properties:
+        token:
+          type: string
+      required:
+        - token
+
+  responses:
+
+    # 200
+    Success:
+      description: Action completed
+
+    # 201
+    Created:
+      description: Resource created
+
+    # 204
+    NoContent:
+      description: Action Ok, no content.
+
+    # 400 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+    BadRequest:
+      description: (Bad Request) The required data are lost or incorrect
+
+    # 401
+    Unauthorized:
+      description: Unauthorized Request
+
+    # 404
+    NotFound:
+      description: Resource NotFound
+
+    # 418
+    Teapot:
+      description: I am a teapot (418).
+
+    # 422
+    ValidationError:
+      description: The given data was invalid
+
+    # 429
+    TooManyAttempts:
+      description: Try to access to many times
+
+    # 500
+    ServerError:
+      description: Server Error
+
+  requestBodies:
+    Login:
+      description: Data from login
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginRequest'
+
+    SensorRequest:
+      description: Sensor to save
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewSensor'
+
+    MeasurementRequest:
+      description: Sensor to save
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewMeasurement'
+
+  securitySchemes:
+    BearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    Api-key:
+      type: apiKey
+      name: Api-key
+      in: header
