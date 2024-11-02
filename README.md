@@ -52,6 +52,10 @@ Where:
 are not registered.
  - Each *measurement* is related to one *wine* and uses one *sensor*.
 
+### Set DB settings
+
+Doc from https://symfony.com/doc/current/doctrine.html
+
 ### Create DB tables
 
 Use the files from "database/sql" to create the BD tables in this order:
