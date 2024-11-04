@@ -72,7 +72,7 @@ Use the files from "database/sql" to create the BD tables in this order:
 
 ## API routes
 
-#### Public routes:
+#### Public routes
 
     POST   | [domain]/api/v1/login
 
