@@ -3,6 +3,7 @@
 namespace tests\Functional\App\Domain\Sensor\Controller\Api\V1;
 
 use App\Domain\Sensor\Event\SensorEvent;
+use App\Util\Misc\HttpStatusCode;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CreateSensorControllerTest extends WebTestCase
@@ -16,7 +17,10 @@ class CreateSensorControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('POST', $this->uri, ['name' => 'OneTest']);
 
-        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        $this->assertEquals(
+            HttpStatusCode::CREATED,
+            $client->getResponse()->getStatusCode()
+        );
         $this->assertStringContainsString(
             $this->expectedMessage,
             $client->getResponse()->getContent()

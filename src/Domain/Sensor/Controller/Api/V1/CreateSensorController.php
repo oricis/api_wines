@@ -5,6 +5,7 @@ namespace App\Domain\Sensor\Controller\Api\V1;
 use App\Domain\Sensor\Event\SensorEvent;
 use App\Domain\Sensor\Service\CreateSensorService;
 use App\Domain\Sensor\Service\SensorResponseService;
+use App\Util\Misc\HttpStatusCode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +22,10 @@ class CreateSensorController extends AbstractController
     {
         $sensor = $createSensorService->create($request);
 
-        $statusCode = 201;
+        $statusCode = HttpStatusCode::CREATED;
         $message = SensorEvent::CREATE;
         if (is_null($sensor)) {
-            $statusCode = 418;
+            $statusCode = HttpStatusCode::TEAPOT;;
             $message = 'Error trying create the sensor';
         }
 
