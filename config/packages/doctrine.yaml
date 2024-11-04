@@ -18,12 +18,36 @@ doctrine:
             Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
         auto_mapping: true
         mappings:
-            App:
+            # App:
+            #     type: attribute
+            #     is_bundle: false
+            #     dir: '%kernel.project_dir%/src/Entity'
+            #     prefix: 'App\Entity'
+            #     alias: App
+            MeasurementEntity:
                 type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
+                dir: '%kernel.project_dir%/src/Domain/Measurement/Entity'
+                prefix: 'App\Domain\Measurement\Entity'
+                alias: MeasurementEntity
+            SensorEntity:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Domain/Sensor/Entity'
+                prefix: 'App\Domain\Sensor\Entity'
+                alias: SensorEntity
+            UserEntity:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Domain/User/Entity'
+                prefix: 'App\Domain\User\Entity'
+                alias: UserEntity
+            WineEntity:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Domain/Wine/Entity'
+                prefix: 'App\Domain\Wine\Entity'
+                alias: WineEntity
         controller_resolver:
             auto_mapping: false
 

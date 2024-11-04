@@ -58,17 +58,9 @@ Doc from https://symfony.com/doc/current/doctrine.html
 
 ### Create DB tables
 
-Use the files from "database/sql" to create the BD tables in this order:
+Run the ***migrations*** with the command:
 
- - create-tables.sql
- - test-inserts.sql
- - constraint-tables.sql
-
-***NOTE:** some of the inserts are optional since the application can register*
-*the related data (sensors and measurements) but you can use all to check*
-*from the beginning the GET endpoints.*
-
-***NOTE:** the provided SQL was tested on MySQL 8.0.36 on Ubuntu.*
+    php bin/console doctrine:migrations:migrate
 
 ## API routes
 
