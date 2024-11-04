@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Functional\App\Domain\Sensor\Controller\Api\V1;
+namespace App\Tests\Functional\App\Domain\Sensor\Controller\Api\V1;
 
 use App\Domain\Sensor\Event\SensorEvent;
 use App\Util\Misc\HttpStatusCode;
