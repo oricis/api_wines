@@ -50,7 +50,7 @@ if (!function_exists($funcName)) {
         return date('Y-m-d H:i:s')
             . '<br>File: ' . $exception->getFile() . PHP_EOL
             . ' / Line: ' . $exception->getLine() . PHP_EOL
-            . '<br>Exception: ' . $exception->getMessage();
+            . '<br>' . get_class($exception) . ': ' . $exception->getMessage();
     }
 }
 
