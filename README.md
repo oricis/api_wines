@@ -137,6 +137,11 @@ Example:
 
 *PHPUnit doc: https://phpunit.de/documentation.html*
 
+***NOTE:** Before running tests that require the DB, run the tests migrations:*
+
+    php bin/console doctrine:migrations:migrate --env=test
+
+
 ***
 
 #### [See the app docs here)](./docs/main.md)
