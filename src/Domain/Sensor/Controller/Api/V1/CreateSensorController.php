@@ -25,8 +25,8 @@ class CreateSensorController extends AbstractController
         $statusCode = HttpStatusCode::CREATED;
         $message = SensorEvent::CREATE;
         if (is_null($sensor)) {
-            $statusCode = HttpStatusCode::TEAPOT;;
-            $message = 'Error trying create the sensor';
+            $statusCode = HttpStatusCode::TEAPOT;
+            $message = 'Error trying create the register';
         }
 
         $output = [
