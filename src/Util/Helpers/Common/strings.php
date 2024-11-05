@@ -12,3 +12,13 @@ if (!function_exists($funcName)) {
         return $slices[count($slices) - 1];
     }
 }
+
+$funcName = 'sortAlphabetically';
+if (!function_exists($funcName)) {
+    function sortAlphabetically(array $array): array
+    {
+        natcasesort($array);
+
+        return array_values($array);
+    }
+}
