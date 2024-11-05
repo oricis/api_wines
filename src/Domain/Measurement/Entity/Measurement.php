@@ -3,6 +3,7 @@
 namespace App\Domain\Measurement\Entity;
 
 use App\Domain\Measurement\Repository\MeasurementRepository;
+use App\Domain\Wine\Entity\Wine;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +35,9 @@ class Measurement
 
     #[ORM\Column]
     private ?int $wine_id = null;
+
+    #[ORM\ManyToOne(targetEntity: Wine::class, inversedBy: 'measurements')]
+    private Wine $wine;
 
 
     public function getId(): ?int
@@ -121,6 +125,18 @@ class Measurement
     public function setWineId(int $wine_id): static
     {
         $this->wine_id = $wine_id;
+
+        return $this;
+    }
+
+    public function getWine(): ?Wine
+    {
+        return $this->wine;
+    }
+
+    public function setWine(?Wine $wine): static
+    {
+        $this->wine = $wine;
 
         return $this;
     }
