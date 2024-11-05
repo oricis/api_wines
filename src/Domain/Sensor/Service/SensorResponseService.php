@@ -8,6 +8,10 @@ use App\Util\Interfaces\ResponseServiceInterface;
 
 final class SensorResponseService implements ResponseServiceInterface
 {
+
+    /*
+     * @return array<string,mixed>
+     */
     public static function get(object $sensor): array
     {
         try {

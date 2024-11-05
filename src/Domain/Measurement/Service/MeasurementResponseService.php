@@ -8,6 +8,10 @@ use App\Util\Interfaces\ResponseServiceInterface;
 
 final class MeasurementResponseService implements ResponseServiceInterface
 {
+
+    /*
+     * @return array<string,mixed>
+     */
     public static function get(object $measurement): array
     {
         try {
