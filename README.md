@@ -62,6 +62,16 @@ Run the ***migrations*** with the command:
 
     php bin/console doctrine:migrations:migrate
 
+### Seed DB tables
+
+Run the ***fixtures*** with the command:
+
+    php bin/console doctrine:fixtures:load
+
+There are fixtures created to seed the tables: *sensor*, *user* and *wine*.
+
+***
+
 ## API routes
 
 #### Public routes

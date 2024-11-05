@@ -17,9 +17,11 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
         "symfony/runtime": "7.1.*",
+        "symfony/security-bundle": "7.1.*",
         "symfony/yaml": "7.1.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
         "phpmd/phpmd": "@stable",
         "phpstan/phpstan": "^1.12",
         "phpunit/phpunit": "^11.0",
