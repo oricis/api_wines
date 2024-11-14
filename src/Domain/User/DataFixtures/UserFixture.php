@@ -20,7 +20,7 @@ class UserFixture extends Fixture
 
         // create 10 users! Bam!
         for ($i = 0; $i < 10; $i++) {
-            $name = 'user ' . $i;
+            $name = 'user_' . $i;
 
 
             $user = new User();
