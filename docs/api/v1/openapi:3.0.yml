@@ -39,20 +39,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-              example:
-                {
-                  "id": 12,
-                  "name": "foo",
-                  "surname": "baz",
-                  "email": "foo@mail.com"
-                }
+                $ref: '#/components/schemas/LoginResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
-      security:
-        - Api-key: []
 
   /sensor:
     get:
@@ -63,7 +54,7 @@ paths:
         - sensor
       parameters:
         - $ref: '#/components/parameters/apiKey'
-        - $ref: '#/components/parameters/bearer'
+        - $ref: '#/components/securitySchemes/Token'
       responses:
         '200':
           description: OK
@@ -81,8 +72,7 @@ paths:
         '418':
           $ref: '#/components/responses/Teapot'
       security:
-        - BearerToken: []
-        - Api-key: []
+        - Token: []
 
     post:
       summary: Register a sensor
@@ -99,7 +89,7 @@ paths:
         - sensor
       parameters:
         - $ref: '#/components/parameters/apiKey'
-        - $ref: '#/components/parameters/bearer'
+        - $ref: '#/components/securitySchemes/Token'
       responses:
         '201':
           description: OK
@@ -112,8 +102,7 @@ paths:
         '418':
           $ref: '#/components/responses/Teapot'
       security:
-        - BearerToken: []
-        - Api-key: []
+        - Token: []
 
   /measurement:
     post:
@@ -131,7 +120,7 @@ paths:
         - measurement
       parameters:
         - $ref: '#/components/parameters/apiKey'
-        - $ref: '#/components/parameters/bearer'
+        - $ref: '#/components/securitySchemes/Token'
       responses:
         '201':
           description: OK
@@ -144,8 +133,7 @@ paths:
         '418':
           $ref: '#/components/responses/Teapot'
       security:
-        - BearerToken: []
-        - Api-key: []
+        - Token: []
 
   /wine/measurement:
     get:
@@ -156,7 +144,7 @@ paths:
         - wine
       parameters:
         - $ref: '#/components/parameters/apiKey'
-        - $ref: '#/components/parameters/bearer'
+        - $ref: '#/components/securitySchemes/Token'
       responses:
         '200':
           description: OK
@@ -173,8 +161,7 @@ paths:
         '418':
           $ref: '#/components/responses/Teapot'
       security:
-        - BearerToken: []
-        - Api-key: []
+        - Token: []
 
 tags:
   - name: auth
@@ -186,9 +173,11 @@ tags:
   - name: wine
     description: Group info about the wines
 
+
 components:
 
   parameters:
+
     acceptHeader:
       in: header
       name: Accept
@@ -199,19 +188,11 @@ components:
     apiKey:
       in: header
       name: Api-key
-      description: API token
+      description: API toke to identify the client application
       required: true
       schema:
         type: string
-        example: nuhd8fiuerw4eg23
-
-    bearer:
-      in: header
-      name: bearer
-      description: API auth token
-      required: true
-      schema:
-        type: string
+        example: nuhd8fiuerw4eg23ertg9nuhd8fiutrw4eg23ertas
 
     contentTypeHeader:
       in: header
@@ -220,15 +201,9 @@ components:
         $ref: '#/components/schemas/ApplicationJson'
       required: true
 
-    token:
-      in: path
-      name: token
-      description: A token string
-      required: true
-      schema:
-        type: string
 
   schemas:
+
     ApplicationJson:
       default: "application/json"
       type: string
@@ -355,10 +330,32 @@ components:
 
     LoginResponse:
       properties:
+        email:
+          type: string
+          format: email
+          example: john@example.com
+        name:
+          type: string
+          example: 'San'
+        surname:
+          type: string
+          example: 'Jacobo'
         token:
           type: string
       required:
+        - email
+        - name
+        - surname
         - token
+      example:
+        {
+          "id": 12,
+          "name": "foo",
+          "surname": "baz",
+          "email": "foo@mail.com",
+          "token": "asjha8shhas..."
+        }
+
 
   responses:
 
@@ -402,6 +399,7 @@ components:
     ServerError:
       description: Server Error
 
+
   requestBodies:
     Login:
       description: Data from login
@@ -426,12 +424,11 @@ components:
           schema:
             $ref: '#/components/schemas/NewMeasurement'
 
+
   securitySchemes:
-    BearerToken:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-    Api-key:
+
+    Token:
       type: apiKey
-      name: Api-key
+      name: Token
+      description: Token to identify an user
       in: header
