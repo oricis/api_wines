@@ -139,17 +139,28 @@ You can use one or var of *the rulesets*:
 
 *PHP Mesh Detector doc: https://phpmd.org/documentation/index.html*
 
-### Run unitary test (PHPUnit)
+### Run test (PHPUnit)
 
+The test classes are grouped into two main directories:
+
+ - tests/Functional/
+ - tests/Unit/
+
+The functional tests require setting a test DB.
+To create and populate the test DB run the commands:
+
+    symfony console doctrine:database:create --env=test
+    symfony console doctrine:schema:update --env=test --force
+    php bin/console doctrine:fixtures:load --env=test
+
+To run the test contained in one class run:
+
+    vendor/bin/phpunit route_to_the_test_class/className.php --color
 Example:
 
-    vendor/bin/phpunit tests/Unit/Services/FooService --color
+    vendor/bin/phpunit tests/Functional/App/Domain/User/Controller/Api/V1/AuthUserControllerTest --color
 
 *PHPUnit doc: https://phpunit.de/documentation.html*
-
-***NOTE:** Before running tests that require the DB, run the tests migrations:*
-
-    php bin/console doctrine:migrations:migrate --env=test
 
 
 ***
