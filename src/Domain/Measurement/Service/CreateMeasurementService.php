@@ -19,19 +19,19 @@ final class CreateMeasurementService implements CreateServiceInterface
     {
         try {
             $measurement = new Measurement;
-            $measurement->setYear($request->request->get('year'));
-            $measurement->setColor($request->request->get('color'));
-            $measurement->setTemperature($request->request->get('temperature'));
-            $measurement->setPh($request->request->get('ph'));
-            $measurement->setAlcoholContent($request->request->get('alcohol_content'));
-            $measurement->setSensorId($request->request->get('sensor_id'));
-            $measurement->setWineId($request->request->get('wine_id'));
+            $measurement->setYear((int) $request->request->get('year'));
+            $measurement->setColor((string) $request->request->get('color'));
+            $measurement->setTemperature((int) $request->request->get('temperature'));
+            $measurement->setPh((float) $request->request->get('ph'));
+            $measurement->setAlcoholContent((int) $request->request->get('alcohol_content'));
+            $measurement->setSensorId((int) $request->request->get('sensor_id'));
+            $measurement->setWineId((int) $request->request->get('wine_id'));
             $this->entityManager->persist($measurement);
             $this->entityManager->flush();
         } catch (CreateMeasurementException $e) {
             error(getExceptionStr($e));
         }
 
-        return $measurement ?? null;
+        return $measurement;
     }
 }

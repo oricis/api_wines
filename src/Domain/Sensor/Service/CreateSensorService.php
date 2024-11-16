@@ -19,7 +19,7 @@ final class CreateSensorService implements CreateServiceInterface
     {
         try {
             $sensor = new Sensor;
-            $sensor->setName($request->request->get('name'));
+            $sensor->setName((string) $request->request->get('name'));
 
             $this->entityManager->persist($sensor);
             $this->entityManager->flush();
@@ -27,6 +27,6 @@ final class CreateSensorService implements CreateServiceInterface
             error(getExceptionStr($e));
         }
 
-        return $sensor ?? null;
+        return $sensor;
     }
 }

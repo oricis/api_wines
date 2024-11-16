@@ -7,6 +7,10 @@ $funcName = 'getLastSlice';
 if (!function_exists($funcName)) {
     function getLastSlice(string $str = '', string $separator = '/'): string
     {
+        if (empty($separator)) {
+            return $str;
+        }
+
         $slices = explode($separator, $str);
 
         return $slices[count($slices) - 1];

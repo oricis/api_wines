@@ -27,7 +27,7 @@ class User implements PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(type: 'string', unique: true, nullable: true, length: 64)]
-    private $api_token;
+    private ?string $api_token;
 
 
     public function getId(): ?int

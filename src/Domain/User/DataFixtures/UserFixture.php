@@ -16,7 +16,7 @@ class UserFixture extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $password = 12345678;
+        $password = '12345678';
 
         // create 10 users! Bam!
         for ($i = 0; $i < 10; $i++) {

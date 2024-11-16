@@ -23,6 +23,9 @@ class Wine
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $year = null;
 
+    /**
+     * @var Collection<int,Measurement>
+     */
     #[ORM\OneToMany(targetEntity: Measurement::class,mappedBy: "wine")]
     private Collection $measurements;
 

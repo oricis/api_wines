@@ -6,7 +6,7 @@ final class ApiUtils
 {
 
     /**
-     * @return array<int,string>
+     * @return array<string,string>
      */
     public static function composeApiHeaders(string $token): array
     {
@@ -18,7 +18,7 @@ final class ApiUtils
     }
 
     /**
-     * @return array<int,string>
+     * @return array<string,string>
      */
     public static function composeAuthenticatedHeaders(string $token, string $bearer): array
     {
@@ -32,6 +32,10 @@ final class ApiUtils
 
     public static function generateToken(int $length = 32): string
     {
+        if ($length <= 0) {
+            $length = 1;
+        }
+
         return bin2hex(random_bytes($length));
     }
 }

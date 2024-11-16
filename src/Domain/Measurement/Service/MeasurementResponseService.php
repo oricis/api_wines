@@ -10,7 +10,7 @@ final class MeasurementResponseService implements ResponseServiceInterface
 {
 
     /*
-     * @return array<string,mixed>
+     * @return array<string,mixed>|[]
      */
     public static function get(object $measurement): array
     {

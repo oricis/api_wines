@@ -17,7 +17,7 @@ class WineFixture extends Fixture
 
             $wine = new Wine();
             $wine->setName($name);
-            $wine->setYear(rand(1900, date('Y')));
+            $wine->setYear(rand(1900, (int) date('Y')));
 
             $manager->persist($wine);
         }
