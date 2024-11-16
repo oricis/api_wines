@@ -2,6 +2,7 @@
 
 namespace App\Domain\User\Controller\Api\V1;
 
+use App\Controller\TokenAuthenticatedController;
 use App\Domain\User\Event\UserEvent;
 use App\Domain\User\Service\AuthenticateUserResponseService;
 use App\Domain\User\Service\AuthUserService;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AuthUserController extends AbstractController
+class AuthUserController extends AbstractController implements TokenAuthenticatedController
 {
 
     #[Route('/api/v1/login', name: 'api_login', methods: ['POST'])]

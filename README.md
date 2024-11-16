@@ -92,11 +92,190 @@ Check [Openapi document](./docs/api/v1/openapi:3.0.yml)
 ***NOTE:** the routes are on the controllers as*
 *[attributes](https://symfony.com/doc/current/best_practices.html#best-practice-controller-attributes).*
 
+***NOTE:** use the `API_TOKEN` value from the `.env`file to validate all the api requests.*
+
+***NOTE:** only the "login" request is public and needs to have* *the `apitoken` header to be recognized as valid, the other routes need*
+*to have set the `apitoken` and the `token` (user token) correctly in the headers.*
+
 ***
 
 ## App Directories Tree
 
-// TODO:
+```
+api_wines
+├─ .env
+├─ .env.test
+├─ .gitignore
+├─ LICENCE
+├─ README.md
+├─ bin
+│  └─ console
+├─ composer.json
+├─ composer.lock
+├─ config/..
+├─ docs
+│  ├─ api
+│  │  └─ v1
+│  │     └─ openapi:3.0.yml
+│  └─ images
+├─ phpmd.baseline.xml
+├─ phpstan.dist.neon
+├─ phpunit.xml.dist
+├─ public
+│  └─ index.php
+├─ src
+│  ├─ Controller
+│  │  └─ TokenAuthenticatedController.php
+│  ├─ Domain
+│  │  ├─ Measurement
+│  │  │  ├─ Controller
+│  │  │  │  └─ Api
+│  │  │  │     └─ V1
+│  │  │  │        └─ CreateMeasurementController.php
+│  │  │  ├─ Entity
+│  │  │  │  └─ Measurement.php
+│  │  │  ├─ Event
+│  │  │  │  └─ MeasurementEvent.php
+│  │  │  ├─ Exception
+│  │  │  │  └─ CreateMeasurementException.php
+│  │  │  ├─ Repository
+│  │  │  │  └─ MeasurementRepository.php
+│  │  │  ├─ Service
+│  │  │  │  ├─ CreateMeasurementService.php
+│  │  │  │  └─ MeasurementResponseService.php
+│  │  │  └─ migrations
+│  │  │     └─ Version20241104113808.php
+│  │  ├─ Sensor
+│  │  │  ├─ Controller
+│  │  │  │  └─ Api
+│  │  │  │     └─ V1
+│  │  │  │        ├─ CreateSensorController.php
+│  │  │  │        └─ ListSensorController.php
+│  │  │  ├─ DataFixtures
+│  │  │  │  └─ SensorFixture.php
+│  │  │  ├─ Entity
+│  │  │  │  └─ Sensor.php
+│  │  │  ├─ Event
+│  │  │  │  └─ SensorEvent.php
+│  │  │  ├─ Exception
+│  │  │  │  └─ CreateSensorException.php
+│  │  │  ├─ Repository
+│  │  │  │  └─ SensorRepository.php
+│  │  │  ├─ Service
+│  │  │  │  ├─ CreateSensorService.php
+│  │  │  │  ├─ QuerySensorService.php
+│  │  │  │  └─ SensorResponseService.php
+│  │  │  └─ migrations
+│  │  │     └─ Version20241104113818.php
+│  │  ├─ User
+│  │  │  ├─ Controller
+│  │  │  │  └─ Api
+│  │  │  │     └─ V1
+│  │  │  │        └─ AuthUserController.php
+│  │  │  ├─ DataFixtures
+│  │  │  │  └─ UserFixture.php
+│  │  │  ├─ Entity
+│  │  │  │  └─ User.php
+│  │  │  ├─ Event
+│  │  │  │  └─ UserEvent.php
+│  │  │  ├─ Exception
+│  │  │  │  └─ CreateTokenException.php
+│  │  │  ├─ Repository
+│  │  │  │  └─ UserRepository.php
+│  │  │  ├─ Service
+│  │  │  │  ├─ AuthUserService.php
+│  │  │  │  └─ AuthenticateUserResponseService.php
+│  │  │  └─ migrations
+│  │  │     └─ Version20241104113754.php
+│  │  └─ Wine
+│  │     ├─ Controller
+│  │     │  └─ Api
+│  │     │     └─ V1
+│  │     │        └─ ListWineAndMeasurementsController.php
+│  │     ├─ DataFixtures
+│  │     │  └─ WineFixture.php
+│  │     ├─ Entity
+│  │     │  └─ Wine.php
+│  │     ├─ Event
+│  │     │  └─ WineEvent.php
+│  │     ├─ Repository
+│  │     │  └─ WineRepository.php
+│  │     ├─ Service
+│  │     │  ├─ QueryWineService.php
+│  │     │  └─ WineWithMeasurementsResponseService.php
+│  │     └─ migrations
+│  │        └─ Version20241104113832.php
+│  ├─ EventSubscriber
+│  │  └─ TokenSubscriber.php
+│  ├─ Kernel.php
+│  ├─ Repository
+│  │  └─ BaseRepository.php
+│  └─ Util
+│     ├─ Exceptions
+│     │  └─ RequireSpecificObjectException.php
+│     ├─ Helpers
+│     │  ├─ Common
+│     │  │  ├─ logging.php
+│     │  │  ├─ strings.php
+│     │  │  └─ traces.php
+│     │  └─ loader.php
+│     ├─ Interfaces
+│     │  ├─ CreateServiceInterface.php
+│     │  └─ ResponseServiceInterface.php
+│     └─ Misc
+│        ├─ ApiUtils.php
+│        └─ HttpStatusCode.php
+├─ storage
+│  └─ output
+│     └─ phpmd.json
+├─ symfony.lock
+├─ templates
+├─ tests
+│  ├─ Functional
+│  │  ├─ App
+│  │  │  └─ Domain
+│  │  │     ├─ Measurement
+│  │  │     │  ├─ Controller
+│  │  │     │  │  └─ Api
+│  │  │     │  │     └─ V1
+│  │  │     │  │        ├─ CreateMeasurementControllerTest.php
+│  │  │     │  │        └─ CreateMeasurementServiceTest.php
+│  │  │     │  └─ CreateMeasurementTrait.php
+│  │  │     ├─ Sensor
+│  │  │     │  ├─ Controller
+│  │  │     │  │  └─ Api
+│  │  │     │  │     └─ V1
+│  │  │     │  │        ├─ CreateSensorControllerTest.php
+│  │  │     │  │        └─ ListSensorControllerTest.php
+│  │  │     │  └─ Repository
+│  │  │     │     └─ SensorRepositoryTest.php
+│  │  │     ├─ User
+│  │  │     │  ├─ Controller
+│  │  │     │  │  └─ Api
+│  │  │     │  │     └─ V1
+│  │  │     │  │        └─ AuthUserControllerTest.php
+│  │  │     │  └─ Repository
+│  │  │     │     └─ UserRepositoryTest.php
+│  │  │     └─ Wine
+│  │  │        ├─ Controller
+│  │  │        │  └─ Api
+│  │  │        │     └─ V1
+│  │  │        │        └─ ListWineAndMeasurementsControllerTest.php
+│  │  │        ├─ Repository
+│  │  │        │  └─ WineRepositoryTest.php
+│  │  │        └─ Service
+│  │  │           └─ WineWithMeasurementsResponseServiceTest.php
+│  │  └─ BrowserTrait.php
+│  ├─ Unit
+│  │  └─ App
+│  │     └─ Util
+│  │        └─ Helpers
+│  │           └─ Common
+│  │              └─ StringsTest.php
+│  └─ bootstrap.php
+├─ var/..
+└─ vendor/..
+```
 
 ***
 

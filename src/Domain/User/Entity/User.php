@@ -26,8 +26,8 @@ class User implements PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 120)]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'string', unique: true, nullable: true)]
-    private $apiToken;
+    #[ORM\Column(type: 'string', unique: true, nullable: true, length: 64)]
+    private $api_token;
 
 
     public function getId(): ?int
@@ -85,12 +85,12 @@ class User implements PasswordAuthenticatedUserInterface
 
     public function getApiToken(): ?string
     {
-        return $this->apiToken;
+        return $this->api_token;
     }
 
     public function setApiToken(string $apiToken): static
     {
-        $this->apiToken = $apiToken;
+        $this->api_token = $apiToken;
 
         return $this;
     }
