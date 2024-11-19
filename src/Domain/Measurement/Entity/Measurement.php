@@ -37,7 +37,7 @@ class Measurement
     private ?int $wine_id = null;
 
     #[ORM\ManyToOne(targetEntity: Wine::class, inversedBy: 'measurements')]
-    private Wine $wine;
+    private ?Wine $wine;
 
 
     public function getId(): ?int

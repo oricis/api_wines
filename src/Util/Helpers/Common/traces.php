@@ -56,6 +56,9 @@ if (!function_exists($funcName)) {
 
 $funcName = 'go';
 if (!function_exists($funcName)) {
+    /**
+     * @param array<mixed> $backtrace
+     */
     function go(array $backtrace = [], int $level = 1): string
     {
         $backtrace = ($backtrace)

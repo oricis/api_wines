@@ -27,11 +27,13 @@ class CreateSensorController extends AbstractController
         if (is_null($sensor)) {
             $statusCode = HttpStatusCode::TEAPOT;
             $message = 'Error trying create the register';
+        } else {
+            $data = SensorResponseService::get($sensor);
         }
 
         $output = [
             'message' => $message,
-            'data' => SensorResponseService::get($sensor),
+            'data' => $data ?? null,
         ];
 
         return new JsonResponse($output, $statusCode);

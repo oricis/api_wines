@@ -27,11 +27,13 @@ class CreateMeasurementController extends AbstractController
         if (is_null($sensor)) {
             $statusCode = HttpStatusCode::TEAPOT;
             $message = 'Error trying create the register';
+        } else {
+            $data = MeasurementResponseService::get($sensor);
         }
 
         $output = [
             'message' => $message,
-            'data' => MeasurementResponseService::get($sensor),
+            'data' => $data ?? null,
         ];
 
         return new JsonResponse($output, $statusCode);

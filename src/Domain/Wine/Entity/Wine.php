@@ -50,7 +50,8 @@ class Wine
 
     public function addMeasurement(Measurement $measurement): static
     {
-        if (!$this->measurements->contains($measurement)) {
+        if ($this->id
+            && !$this->measurements->contains($measurement)) {
             $this->measurements->add($measurement);
 
             $measurement->setWineId($this->id);

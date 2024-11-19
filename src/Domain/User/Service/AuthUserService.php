@@ -31,12 +31,13 @@ class AuthUserService
             ->getRepository(User::class)
             ->findOneBy(['email' => $email]);
 
-        return ($this->passwordHasher->isPasswordValid($user, $password))
+        return ($user
+            && $this->passwordHasher->isPasswordValid($user, $password))
             ? $user
             : null;
     }
 
-    public function setToken(User $user):? User
+    public function setToken(User $user): User
     {
         try {
             $token = ApiUtils::generateToken(64);
@@ -46,7 +47,6 @@ class AuthUserService
             $this->entityManager->flush();
         } catch (CreateTokenException $e) {
             error(getExceptionStr($e));
-            return null;
         }
 
         return $user;

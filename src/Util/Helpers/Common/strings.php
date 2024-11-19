@@ -19,6 +19,10 @@ if (!function_exists($funcName)) {
 
 $funcName = 'sortAlphabetically';
 if (!function_exists($funcName)) {
+    /**
+     * @param array<mixed> $array
+     * @return array<mixed>
+     */
     function sortAlphabetically(array $array): array
     {
         natcasesort($array);

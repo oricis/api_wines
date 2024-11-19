@@ -18,6 +18,9 @@ class BaseRepository
             = DriverManager::getConnection($this->getConnectionParams($dbName));
     }
 
+    /**
+     * @param array<int,string> $attributes
+     */
     public function setAttributes(array $attributes): void
     {
         $this->attributes = implode(',', $attributes);
@@ -29,6 +32,9 @@ class BaseRepository
     }
 
 
+    /**
+     * @return array<mixed>
+     */
     private function getConnectionParams(string $dbName = ''): array
     {
         return [
