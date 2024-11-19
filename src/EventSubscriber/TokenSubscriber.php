@@ -29,9 +29,12 @@ class TokenSubscriber implements EventSubscriberInterface
         /**
          * @var string
          */
-        $controllerClass = is_array($controller)
-            ? get_class($controller[0])
-            : get_class($controller);
+        $controllerClass = '';
+        if (is_array($controller) && is_object($controller[0])) {
+            $controllerClass = get_class($controller[0]);
+        } elseif (is_object($controller)) {
+            $controllerClass = get_class($controller);
+        }
 
         /**
          * @var string

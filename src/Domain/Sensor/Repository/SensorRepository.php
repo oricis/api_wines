@@ -18,14 +18,18 @@ class SensorRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Sensor[] Returns an array of Sensor objects in order ASC
-    */
-    public function getAllInAscOrder(): array
+     * Returns an array of Sensor objects in order ASC
+     * @return Sensor[]|null
+     */
+    public function getAllInAscOrder():? array
     {
-        return $this->createQueryBuilder('s')
+        $rows = $this->createQueryBuilder('s')
             ->orderBy('s.name', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+
+        return is_array($rows) && !empty($rows)
+            ? $rows
+            : null;
     }
 }

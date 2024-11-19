@@ -19,7 +19,7 @@ class ListSensorController extends AbstractController
         $sensors = $sensorRepository->getAllInAscOrder();
 
         $preparedSensors = [];
-        foreach ($sensors as $sensor) {
+        foreach ($sensors ?? [] as $sensor) {
             $preparedSensors[] = SensorResponseService::get($sensor);
         }
 

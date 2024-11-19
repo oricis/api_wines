@@ -20,10 +20,16 @@ class QueryWineService extends BaseRepository
     {
         $query  = 'SELECT id FROM ' . $this->table;
         $rows   = $this->connection->executeQuery($query)->fetchAllNumeric();
+
+        /**
+         * @var array<int,int>
+         */
         $rowIds = array_merge(...$rows);
 
-        return ($rowIds)
-            ? $rowIds[rand(0, count($rowIds) - 1)]
+        $totalRows = count($rowIds);
+
+        return ($totalRows)
+            ? $rowIds[rand(0, $totalRows - 1)]
             : 0;
     }
 }

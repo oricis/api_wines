@@ -20,10 +20,15 @@ class QuerySensorService extends BaseRepository
     {
         $query  = 'SELECT id FROM ' . $this->table;
         $rows   = $this->connection->executeQuery($query)->fetchAllNumeric();
-        $rowIds = array_merge(...$rows);
 
-        return ($rowIds)
-            ? $rowIds[rand(0, count($rowIds) - 1)]
+        /**
+         * @var array<int,int>
+         */
+        $rowIds = array_merge(...$rows);
+        $totalRows = count($rowIds);
+
+        return ($totalRows)
+            ? $rowIds[rand(0, $totalRows - 1)]
             : 0;
     }
 }

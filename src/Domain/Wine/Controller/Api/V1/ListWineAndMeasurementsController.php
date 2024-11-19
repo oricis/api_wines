@@ -19,7 +19,7 @@ class ListWineAndMeasurementsController extends AbstractController
         $wines = $wineRepository->getWinesWithMeasurements();
 
         $preparedWines = [];
-        foreach ($wines as $wine) {
+        foreach ($wines ?? [] as $wine) {
             $preparedWines[] = WineWithMeasurementsResponseService::get($wine);
         }
 

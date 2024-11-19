@@ -17,14 +17,20 @@ class WineRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Wine[] Returns an array of Wine objects with their measurements
-    */
-    public function getWinesWithMeasurements(): array
+     * Returns an array of Wine objects with their measurements
+     *
+     * @return Wine[]|null
+     */
+    public function getWinesWithMeasurements():? array
     {
-        return $this->createQueryBuilder('w')
+        $rows = $this->createQueryBuilder('w')
             ->select('w, m')
             ->join('w.measurements', 'm')
             ->getQuery()
             ->getResult();
+
+        return is_array($rows) && !empty($rows)
+            ? $rows
+            : null;
     }
 }

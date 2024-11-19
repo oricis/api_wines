@@ -65,12 +65,27 @@ if (!function_exists($funcName)) {
             ? $backtrace
             : debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $level + 1);
 
-        $funcName = (isset($backtrace[$level]['function']))
-            ? $backtrace[$level]['function']
-            : 'function_name_no_present';
-        $shortedClassName = (isset($backtrace[$level]['class']))
-            ? getLastSlice($backtrace[$level]['class'], '\\')
-            : 'func ';
+        $funcName = 'function_name_no_present';
+        $shortedClassName = 'func ';
+
+        if (isset($backtrace[$level])
+            && is_array($backtrace[$level])) {
+            $backtraceLevel = $backtrace[$level];
+
+            $temp = (isset($backtraceLevel['function']))
+                ? $backtraceLevel['function']
+                : null;
+            $funcName = (is_string($temp))
+                ? $temp
+                : $funcName;
+
+            $temp = (isset($backtraceLevel['class']))
+                ? $backtraceLevel['class']
+                : null;
+            $shortedClassName = (is_string($temp))
+                ? getLastSlice($temp, '\\')
+                : $shortedClassName;
+        }
 
         return $shortedClassName . '@' . $funcName;
     }

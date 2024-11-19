@@ -14,8 +14,11 @@ class BaseRepository
 
     public function __construct(string $dbName = '')
     {
-        $this->connection
-            = DriverManager::getConnection($this->getConnectionParams($dbName));
+        $connectionParams = $this->getConnectionParams($dbName);
+        if (is_array($connectionParams)
+            && !empty($connectionParams)) {
+            $this->connection = DriverManager::getConnection($connectionParams);
+        }
     }
 
     /**
