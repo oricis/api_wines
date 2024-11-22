@@ -1,5 +1,24 @@
-controllers:
+
+measurement_api:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: '../src/Domain/Measurement/Controller/Api/V1/'
+        namespace: App\Domain\Measurement\Controller\Api\V1
+    type: attribute
+
+sensor_api:
+    resource:
+        path: '../src/Domain/Sensor/Controller/Api/V1/'
+        namespace: App\Domain\Sensor\Controller\Api\V1
+    type: attribute
+
+user_api:
+    resource:
+        path: '../src/Domain/User/Controller/Api/V1/'
+        namespace: App\Domain\User\Controller\Api\V1
+    type: attribute
+
+wines_api:
+    resource:
+        path: '../src/Domain/Wine/Controller/Api/V1/'
+        namespace: App\Domain\Wine\Controller\Api\V1
     type: attribute
